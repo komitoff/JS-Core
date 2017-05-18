@@ -3,10 +3,9 @@ var port = 1234;
 
 http.createServer(function(req, res) {
     res.writeHead(200, {
-        'Content-Type': 'text/html'
+        'Content-Type': 'text/JSON'
     });
-    res.write('Hello');
-    res.write('<html><ul><li>Simple Imtem</li></ul></html>')
+    res.write(JSON.stringify(http));
     res.end();
 }).listen(port);
 
