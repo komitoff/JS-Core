@@ -79,4 +79,105 @@ function compoundInterset(arr) {
     console.log(result)
 }
 
-compoundInterset([1500, 4.3, 3, 6])
+function dayOfWeek(day) {
+    if (day == 'Monday') 
+      return 1
+    if (day == 'Tuesday') 
+      return 2
+    if (day == 'Wednesday')
+      return 3
+    if (day == 'Thursday') 
+      return 4
+    if (day == 'Friday')
+      return 5
+    if (day == 'Saturday') 
+      return 6
+    if (day == 'Sunday') 
+      return 7
+    return "error"
+}
+
+
+function imperialUnits(foot) {
+    let inches = 0
+    let feet = 0
+    while (foot > 11) {
+        foot -= 12
+        feet ++
+    }
+
+    inches = foot
+
+    console.log(`${feet}'-${inches}"`)
+}
+
+function nowPlaying(arr) {
+  let artistName = arr[1]
+  let song = arr[0]
+  let duration = arr[2]
+
+  console.log(`Now Playing: ${artistName} - ${song} [${duration}]`)
+}
+
+function composeTag(arr) {
+  let src = arr[0]
+  let alt = arr[1]
+
+  console.log(`<img src="${src}" alt="${alt}">`)
+}
+
+function binToDec(binary) { 
+    let decimal = 0;
+    for (let i = 0; i < binary.length; i++) {
+        decimal += binary[i] * 2 ** (binary.length - i - 1);
+    }
+    return decimal;
+}
+
+function assignProp(arr) {
+  let person = {}
+  person[arr[0]] = arr[1]
+  person[arr[2]] = arr[3]
+  person[arr[4]] = arr[5]
+  console.log(person)
+}
+
+function lastDay(arr) {
+    let resultDay = new Date(arr[2], arr[1] - 1, 0)
+    return resultDay.getDate();
+}
+
+function biggestOfThree(arr) {
+    arr.sort((a, b) => {return a - b})
+    return arr[arr.length - 1]
+}
+
+function pointInRect(arr) {
+
+    let [x, y, xMin, xMax, yMin, yMax] = arr
+    let xCondition = x <= xMax && x >= xMin;
+    let yCondition = y <= yMax && y >= yMin;
+
+    if (xCondition&&yCondition) {
+        console.log('inside');
+    } else {
+        console.log('outside');
+    }
+}
+
+function oddNumbers(num) {
+  let n = Number(n)
+  for (let i = 1; i <= n; i += 2) {
+      console.log(i)
+  }
+}
+
+function dollarTriangle(number) {
+  let n = Number(number)
+
+  for (let i = 1; i <= n; i++) {
+    console.log("$".repeat(i))
+  }
+}
+
+dollarTriangle(4)
