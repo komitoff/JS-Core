@@ -50,9 +50,33 @@ function distance(points) {
     console.log(Math.sqrt(x + y + z))
 }
 
-function gradToDeg(grad) {
+//80/100
+function gradToDeg(grads) {
+    let grad = Math.abs(grads)
+    let deg = 0
+    while (grad - 400 > 0) {
+        grad -= 400
+    }    
+    grad /= 400
+    deg = 360 * grad
+    if (grads < 0) {
+        deg = 360 - deg
+    }
 
+    if (deg === 360) {
+        deg = 0
+    }
+    console.log(deg)
 }
 
-distance([1, 1, 0, 5, 4, 0])
-distance([3.5, 0, 1, 0, 2, -1])
+function compoundInterset(arr) {
+    let p = arr[0]
+    let i = arr[1]
+    let n = arr[2]
+    let t = arr[3]
+
+    let result = p * Math.pow(( 1 + (i / n)), t * n)
+    console.log(result)
+}
+
+compoundInterset([1500, 4.3, 3, 6])
