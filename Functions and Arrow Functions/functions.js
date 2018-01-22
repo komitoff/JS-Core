@@ -115,4 +115,39 @@ function cookingByNumber(input) {
     }
 }
 
-cookingByNumber([32, 'chop', 'chop', 'chop', 'chop', 'chop'])
+function modifyAverage(input) {
+    let number = Number(input)
+    
+    while (true) {
+        let result = sum(number)
+        if (check(result)) {
+            console.log(number)
+            break
+        } else {
+            number = appendNine(number)
+        }
+    }
+
+    function appendNine(number) {
+        let result = number + '' + 9
+        return Number(result)
+    }
+    function check(number) {
+        if (number > 5) 
+            return true
+        return false
+    }
+
+    function sum(number) {
+        let result = 0
+        let cnt = 0
+        while (number > 0) {
+            result += number % 10
+            number = parseInt(number / 10)
+            cnt ++
+        }
+        return result / cnt
+    }
+}
+
+modifyAverage(101)
