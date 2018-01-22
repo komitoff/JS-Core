@@ -150,4 +150,131 @@ function modifyAverage(input) {
     }
 }
 
-modifyAverage(101)
+function validityChecker(input) {
+
+    let isValid = false;
+  
+    let point1 = {
+      x: input[0],
+      y: input[1],
+    };
+  
+    let point2 = {
+      x: input[2],
+      y: input[3],
+    };
+    let ponitZero = {
+      x: 0,
+      y: 0,
+    };
+  
+    console.log(`{${point1.x}, ${point1.y}} to {${ponitZero.x}, ${ponitZero.y}} is ${checkDistance(point1,ponitZero)}`);
+  
+    console.log(`{${point2.x}, ${point2.y}} to {${ponitZero.x}, ${ponitZero.y}} is ${checkDistance(point2,ponitZero)}`);
+  
+    console.log(`{${point1.x}, ${point1.y}} to {${point2.x}, ${point2.y}} is ${checkDistance(point1, point2)}`);
+  
+    function checkDistance(firstPoint, secondPoint) {
+      let isValid = 'invalid';
+  
+      let distance = Math.sqrt((firstPoint.x - secondPoint.x) ** 2 + (firstPoint.y - secondPoint.y) ** 2);
+  
+      if (distance - Math.floor(distance) === 0) {
+        isValid = 'valid';
+      }
+      return isValid;
+    }
+}
+  
+function treasureLocator(input) {
+
+    let tuvalu = { x1: 1, y1: 1, x2: 3, y2: 3}
+
+    let tokelau = { x1: 8, y1: 0, x2: 9, y2: 1 }
+
+    let samoa = { x1: 5, y1: 3, x2: 7, y2: 6 }
+
+    let tonga = { x1: 0, y1: 6, x2: 2, y2: 8 }
+
+    let cook = { x1: 4, y1: 7, x2: 9, y2: 8 }
+
+    for (let i = 0; i < input.length; i += 2) {
+        let x = Number(input[i])
+        let y = Number(input[i + 1])
+        console.log(checkPointOnIsland(x, y))
+    }
+
+    function checkPointOnIsland(x, y) {
+        if (x >= tuvalu.x1 && x <= tuvalu.x2) {
+            if (y >= tuvalu.y1 && y <= tuvalu.y2) {
+                return 'Tuvalu'
+            }
+        }
+
+        if (x >= tokelau.x1 && x <= tokelau.x2) {
+            if (y >= tokelau.y1 && y <= tokelau.y2) {
+                return 'Tokelau'
+            }
+        }
+
+        if (x >= samoa.x1 && x <= samoa.x2) {
+            if (y >= samoa.y1 && y <= samoa.y2) {
+                return 'Samoa'
+            }
+        }
+
+        if (x >= tonga.x1 && x <= tonga.x2) {
+            if (y >= tonga.y1 && y <= tonga.y2) {
+                return 'Tonga'
+            }
+        }
+
+        if (x >= cook.x1 && x <= cook.x2) {
+            if (y >= cook.y1 && y <= cook.y2) {
+                return 'Cook'
+            }
+        }
+
+        return 'On the bottom of the ocean'
+    }
+}
+
+function tripLenght(input) {
+
+    let point1 = {
+      x: input[0],
+      y: input[1],
+    }
+  
+    let point2 = {
+      x: input[2],
+      y: input[3],
+    }
+  
+    let point3 = {
+      x: input[4],
+      y: input[5],
+    }
+  
+    let distance12 = findDistance(point1, point2);
+    let distance23 = findDistance(point2, point3);
+    let distance13 = findDistance(point1, point3);
+  
+    let minDistance = [distance12, distance23, distance13]
+        .sort((a, b) => a - b)
+        .slice(0, 2)
+        .reduce((a, b) => a + b);
+  
+    if ((distance12 <= distance13) && (distance13 => distance23)) {
+      console.log('1->2->3: ' + minDistance);
+    } else if ((distance12 <= distance23) && (distance13 < distance23)) {
+      console.log('2->1->3: ' + minDistance);
+    } else {
+      console.log('1->3->2: ' + minDistance);
+    }
+  
+    function findDistance(firstPoint, secondPoint) {
+      let distance = Math.sqrt((firstPoint.x - secondPoint.x) ** 2 + (firstPoint.y - secondPoint.y) ** 2);
+      return distance;
+    }
+}
