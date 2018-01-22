@@ -27,4 +27,24 @@ function pointInDimension(input) {
     }
 }
 
+function roadRadar(input) {
+    let roads = {
+        motorway: 130,
+        interstate: 90,
+        city: 50,
+        residential: 20
+    }
+
+    let driverSpeed = Number(input[0])
+    let drivingArea = input[1]
+    let speedLimit = roads[drivingArea]
+    let overSpeed = driverSpeed - speedLimit
+    if (overSpeed > 0 && overSpeed <= 20) {
+        console.log('speeding') 
+    } else if (overSpeed > 20 && overSpeed <= 40) {
+        console.log('excessive speeding')
+    } else if (overSpeed > 40) {
+        console.log('reckless driving')
+    }
+}
 
