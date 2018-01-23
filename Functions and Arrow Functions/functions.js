@@ -1,4 +1,6 @@
 function pointInDimension(input) {
+    
+    //test merge code
     for (let i = 0; i < input.length; i += 3) {
         let x = input[i]
         let y = input[i + 1]
@@ -48,6 +50,7 @@ function roadRadar(input) {
     }
 }
 
+//test merge code
 function xmlFormatter(input) {
     console.log(`<?xml version="1.0" encoding="UTF-8"?>\n<quiz>`)
     for (let i = 0; i < input.length; i += 2) {
