@@ -278,3 +278,7 @@ function tripLenght(input) {
       return distance;
     }
 }
+
+function testMergeCode() {
+    console.log('Mergeee')
+}
