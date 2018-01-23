@@ -281,10 +281,8 @@ function tripLenght(input) {
       return distance;
     }
 }
-<<<<<<< HEAD
 
 function testMergeCode() {
-    console.log('Mergeee')
+    let a = 5
+    console.log(a)
 }
-=======
->>>>>>> 660b9fcf06e76d61e0a369c730bbd615b6ccabc7
