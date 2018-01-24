@@ -54,3 +54,41 @@ function arrSort(myArr) {
   .sort((c, d) => c.length > d.length)
   console.log(myArr.join('\n'))
 }
+
+//#7 magic matrices
+function magicMatrix(matrix) {
+
+  let sum = matrix[0].reduce((a, b) => a + b);
+  let isMagic = true;
+
+  for (let i = 1; i < matrix.length; i++) {
+    if (sum != matrix[i].reduce((a, b) => a + b)) {
+      
+      isMagic = false;
+      console.log(isMagic);
+      return;
+      
+    }
+  }
+
+  for (let col = 0; col < matrix[0].length; col++) {
+    let sumCol = 0;
+    for (let row = 0; row < matrix.length; row++) {
+      sumCol += matrix[row][col];
+    }
+
+    if (sumCol != sum) {
+      
+      isMagic = false;
+      console.log(isMagic);
+      return;
+
+    }
+  }
+
+  console.log(isMagic);
+}
+
+console.log(magicMatrix([[11, 32, 45],
+  [21, 0, 1],
+  [21, 1, 1]]))
