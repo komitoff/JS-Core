@@ -44,8 +44,13 @@ function rotate(array) {
 
 //#5 Increasing sequence of elements
 function ndc(arr) {
-  let result = arr.filter((v, i) => v >= Math.max(...arr.slice(0, i + 1)));
-  console.log(result.join('\n'));
+  let result = arr.filter((v, i) => v >= Math.max(...arr.slice(0, i + 1)))
+  console.log(result.join('\n'))
 }
 
-
+//#6 Sort array
+function arrSort(myArr) {
+  myArr.sort((x, y) => x > y)
+  .sort((c, d) => c.length > d.length)
+  console.log(myArr.join('\n'))
+}
