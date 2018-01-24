@@ -32,4 +32,14 @@ function addAndRemove(array) {
   }
 }
 
-addAndRemove(['add', 'add', 'remove', 'add', 'add'])
+//#4 Rotate array
+function rotate(array) {
+  let step = Number(array.pop())
+  for (let i = 0; i < step % 10; i++) {
+      array.unshift(array[array.length-1])
+      array.pop()   
+  }
+  console.log(array.join(' '))
+}
+
+console.log(rotate([1,2,3,4,2]))
