@@ -42,4 +42,10 @@ function rotate(array) {
   console.log(array.join(' '))
 }
 
-console.log(rotate([1,2,3,4,2]))
+//#5 Increasing sequence of elements
+function ndc(arr) {
+  let result = arr.filter((v, i) => v >= Math.max(...arr.slice(0, i + 1)));
+  console.log(result.join('\n'));
+}
+
+
