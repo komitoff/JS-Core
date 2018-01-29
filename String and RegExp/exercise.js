@@ -48,4 +48,12 @@ function wordOccurences(text, word) {
   console.log(occurences ? occurences.length : 0)
 }
 
-wordOccurences('how do you plan on achieving that? how? how can you even think of that?', 'h1ow')
+//#9 * 09. Extract Links
+function extractLinks ( input = []){
+  const regex = /www\.[A-Za-z0-9\-]+(\.([\a-z]+)){1,}/gm
+  let result =[]
+  while (match = regex.exec(input)) {
+    result.push(match[0])
+  }
+  console.log(result.join('\n'))
+}
