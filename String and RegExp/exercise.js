@@ -32,4 +32,20 @@ function captureNumbers(arr) {
   console.log(matches.join(' '))
 }
 
-captureNumbers(['The300  What is that?','  I think it’s the 3rd movie.' , 'Lets watch it at 22:45'])
+//#    7. Find Variable Names in Sentences
+function findVariables(text) {
+  let regex = new RegExp(/(\b_[a-zA-Z0-9]+)/g)
+  console.log(
+    text.match(regex).map(e => e.slice(1)).join(',')
+  )
+}
+
+//#08. Word Occurences
+function wordOccurences(text, word) {
+  let regex = new RegExp('\\b' + word.toLowerCase() + '\\b', 'gmi' )
+  let lowerText = text.toLowerCase()
+  let occurences = lowerText.match(regex)
+  console.log(occurences ? occurences.length : 0)
+}
+
+wordOccurences('how do you plan on achieving that? how? how can you even think of that?', 'h1ow')
