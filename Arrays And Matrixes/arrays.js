@@ -63,11 +63,9 @@ function magicMatrix(matrix) {
 
   for (let i = 1; i < matrix.length; i++) {
     if (sum != matrix[i].reduce((a, b) => a + b)) {
-      
-      isMagic = false;
-      console.log(isMagic);
-      return;
-      
+      isMagic = false
+      console.log(isMagic)
+      return
     }
   }
 

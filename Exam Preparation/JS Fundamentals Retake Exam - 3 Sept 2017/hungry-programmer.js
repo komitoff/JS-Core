@@ -1,0 +1,3 @@
+function hungryProgrammer(meals = [], commands = []) {
+  
+}

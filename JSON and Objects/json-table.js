@@ -1,4 +1,4 @@
-function generateTable(input) {
+function generateTable (input) {
   console.log('<table>')
   for (let i = 0; i < input.length; i++) {
     let obj = JSON.parse(input[i])
@@ -9,7 +9,7 @@ function generateTable(input) {
     console.log('\t<tr>')
   }
   console.log('</table>')
-}    
+}   
 
 generateTable(['{"name":"Pesho","position":"Promenliva","salary":100000}',
 '{"name":"Teo","position":"Lecturer","salary":1000}',
