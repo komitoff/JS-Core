@@ -1,71 +1,137 @@
 let expect = require('chai').expect;
 let jsdom = require('jsdom-global')();
 let $ = require('jquery');
-const nuke = require('../functions/shared-object');
+const sharedObject = require('../functions/shared-object')
 
-
-
-describe("Nuke tests", function () {
-
-  let initialHTML;
-  beforeEach(function () {
-
-    document.body.innerHTML =
-      `<body>
-<div id="target">
-    <div class="nested target">
-        <p>This is some text</p>
-    </div>
-    <div class="target">
-        <p>Empty div</p>
-    </div>
-    <div class="inside">
-        <span class="nested">Some more text</span>
-        <span class="target">Some more text</span>
-    </div>
+document.body.innerHTML =
+  `<body>
+<div id="wrapper">
+    <input type="text" id="name">
+    <input type="text" id="income">
 </div>
-</body>`
-initialHTML = $('body').html();
-  });
+</body>`;
 
-  it('Test with valid and invalid selector', function () {
+describe('Shared Object Tests', function () {
 
-    let selector1 = $('.inside');
-    let selector2 = 175;
-    nuke(selector1, selector2);
-    let modifiedHTML = $('body').html();
-    expect(modifiedHTML).to.be.equal(initialHTML);
+  describe('Initial Value Tests', function () {
 
-  });
-
-  it('Test with equal selector', function () {
-
-    let selector1 = $('.nested');
-    nuke(selector1, selector1);
-    let modifiedHTML = $('body').html();
-    expect(modifiedHTML).to.be.equal(initialHTML);
+    it('Test name initial Value', function () {
+      expect(sharedObject.name).to.be.null;
+    });
+    it('Test income initial Value', function () {
+      expect(sharedObject.income).to.be.null;
+    });
 
   });
 
-  it('Test with valid selector', function () {
+  describe('changeName() Tests', function () {
 
-    let selector1 = $('.nested');
-    let selector2 = $('.target')
-    nuke(selector1, selector2);
-    let modifiedHTML = selector1.html();
-    expect(modifiedHTML).to.not.equal(initialHTML);
+    it('Test changeName() with empty string', function () {
+      sharedObject.changeName('');
+      expect(sharedObject.name).to.be.null;
+    });
 
-  });
+    it('Test changeName() with valid string object Prop', function () {
+      sharedObject.changeName('TsolOFF');
+      expect(sharedObject.name).to.be.equal('TsolOFF');
+    });
+
+    it('Test changeName() with valid string NAME Field Value', function () {
+      sharedObject.changeName('Petar');
+      let nameField = $('#name')
+      expect(nameField.val()).to.be.equal('Petar');
+    });
+
+  })
+
+  describe('changeIncome() Tests', function () {
+
+    it('Test changeIncome() with floatng point Number', function () {
+      sharedObject.changeIncome(5.5);
+      expect(sharedObject.income).to.be.null;
+    });
+
+    it('Test changeIncome() with Negative Number', function () {
+      sharedObject.changeIncome(-5);
+      expect(sharedObject.income).to.be.null;
+    });
+
+    it('Test changeIncome() with Number Zero ', function () {
+      sharedObject.changeIncome(0);
+      expect(sharedObject.income).to.be.null;
+    });
+
+    it('Test changeIncome() with a valid Number', function () {
+      sharedObject.changeIncome(10);
+      expect(sharedObject.income).to.be.equal(10);
+    });
+
+    it('Test changeIncome() with a valid Number INCOME Field Value', function () {
+      sharedObject.changeIncome(20);
+      let incomeField = $('#income')
+      expect(incomeField.val()).to.be.equal('20');
+    });
 
 
-  it('Test with valid selectors DO NOT DELETE ANYTHING', function () {
-    
-    let selector1 = $('.nested');
-    let selector2 = $('.inside');
-    nuke(selector1, selector2);
-    let modifiedHTML = $('body').html();
-    expect(modifiedHTML).to.be.equal(initialHTML);
+  })
 
-  });
+
+  describe('updateName() Tests', function () {
+
+    it('Test updateName() with a valid string', function () {
+      let nameField = $('#name').val('Tsolov');;
+      sharedObject.updateName();
+      expect(sharedObject.name).to.be.equal('Tsolov');
+    });
+
+    it('Test updateName() with an empty string', function () {
+      sharedObject.changeName('Ivan')
+      let nameField = $('#name').val('');;
+      sharedObject.updateName();
+      expect(sharedObject.name).to.be.equal('Ivan');
+    });
+
+
+
+  })
+
+
+  describe('updateIncome() Tests', function () {
+
+    it('Test updateIncome() with a valid number', function () {
+      let incomeField = $('#income').val('5');;
+      sharedObject.updateIncome();
+      expect(sharedObject.income).to.be.equal(5);
+    });
+
+    it('Test updateIncome() with a negative number', function () {
+      sharedObject.changeIncome(3);
+      let incomeField = $('#income').val('-8');;
+      sharedObject.updateIncome();
+      expect(sharedObject.income).to.be.equal(3);
+    });
+
+    it('Test updateIncome() with ZERO', function () {
+      sharedObject.changeIncome(3);
+      let incomeField = $('#income').val('0');;
+      sharedObject.updateIncome();
+      expect(sharedObject.income).to.be.equal(3);
+    });
+
+    it('Test updateIncome() with floating point', function () {
+      sharedObject.changeIncome(3);
+      let incomeField = $('#income').val("3.5");;
+      sharedObject.updateIncome();
+      expect(sharedObject.income).to.be.equal(3);
+    });
+
+    it('Test updateIncome() with a string', function () {
+      sharedObject.changeIncome(3);
+      let incomeField = $('#income').val("Ivan");;
+      sharedObject.updateIncome();
+      expect(sharedObject.income).to.be.equal(3);
+    });
+
+  })
 
 });
