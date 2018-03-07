@@ -1,39 +1,32 @@
-class Rat {
-  constructor(name) {
-    this.name = name
-    this.unitedRats = []
-  }
+let result = (function() {
+    class Rat {
+        constructor(name) {
+            this.name = name
+            this.unitedRats = []
+        }
+        
+        unite(rat) {
+            this.unitedRats.push(rat)
+        }
+        
+        getRats() {
+            return this.unitedRats
+        }
+        
+        toString() {
+            console.log(this.name)
+            if (this.unitedRats.length > 0) {
+            for (let i = 0; i < this.unitedRats.length; i++) {
+                console.log('##' + this.unitedRats[i].name)
+            }
+            }
+        }
+    }      
+    return Rat
+})()
 
-  unite(rat) {
-    this.unitedRats.push(rat)
-  }
-
-  getRats() {
-    console.log(this.unitedRats)
-  }
-
-  toString() {
-    console.log(this.name)
-    if (this.unitedRats.length > 0) {
-      for (let i = 0; i < this.unitedRats.length; i++) {
-        console.log('##' + this.unitedRats[i].name)
-      }
-    }
-  }
-}
-
-let test = new Rat("Pesho");
-console.log(test.toString()); //Pesho
-
-console.log(test.getRats()); //[]
-
-test.unite(new Rat("Gosho"));
-test.unite(new Rat("Sasho"));
-console.log(test.getRats());
-//[ Rat { name: 'Gosho', unitedRats: [] },
-//  Rat { name: 'Sasho', unitedRats: [] } ]
-
-console.log(test.toString());
-// Pesho
-// ##Gosho
-// ##Sasho
+let Rat = result
+let rat2 = new Rat("Viktor");
+let rat3 = new Rat("Vichi");
+let rat4 = "fake rat";
+console.log(rat2.getRats().length)
