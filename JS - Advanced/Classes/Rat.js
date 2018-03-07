@@ -6,7 +6,9 @@ let result = (function() {
         }
         
         unite(rat) {
-            this.unitedRats.push(rat)
+            if (rat instanceof Rat) {
+                this.unitedRats.push(rat)
+            }            
         }
         
         getRats() {
@@ -16,9 +18,9 @@ let result = (function() {
         toString() {
             console.log(this.name)
             if (this.unitedRats.length > 0) {
-            for (let i = 0; i < this.unitedRats.length; i++) {
-                console.log('##' + this.unitedRats[i].name)
-            }
+                for (let i = 0; i < this.unitedRats.length; i++) {
+                    console.log('##' + this.unitedRats[i].name)
+                }
             }
         }
     }      
