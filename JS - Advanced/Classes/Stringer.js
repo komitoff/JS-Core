@@ -21,8 +21,20 @@ class Stringer {
       return this.innerString
     }
 
-    let diff = this.innerString.length - this.innerLength
-    return this.innerString + '.'.repeat(diff)
+    if (this.innerLength == 0) {
+      return '...'
+    }
+
+    let result = ''
+    for (let i = 0; i < this.innerString.length; i++) {
+      if (this.innerLength > i) {
+        result += this.innerString[i]
+      }
+      else {
+        result += '.'
+      }
+    }
+    return result
   }
 }
 
