@@ -16,9 +16,11 @@ class Repository {
   }
 
   get(id) {
-    if (this.data.has(id)) {
-      return this.data.get(id);
+    if (!this.data.has(id)) {
+      throw new Error(`Entity with id: {id} does not exist!`);
     }
+    
+    return this.data.get(id);
   }
 
   update(id, newEntity) {
