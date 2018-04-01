@@ -1,19 +1,35 @@
 const BASE_URL = 'https://baas.kinvey.com/'
-const APP_KEY = ''
-const APP_SECRET = ''
+const APP_KEY = 'kid_r10lxLA9G'
+const APP_SECRET = 'a96504ed50ff486a88896384eb9ae3c4'
 const AUTH_HEADERS = {'Authorization': "Basic " + btoa(APP_KEY + ":" + APP_SECRET)}
 const BOOKS_PER_PAGE = 10
 
 function loginUser() {
-    // TODO
-    // POST -> BASE_URL + 'user/' + APP_KEY + '/login'
-    // signInUser(res, 'Login successful.')
+    let username = $('#formLogin input[name=username]').val()
+    let password = $('#formLogin input[name=passwd]').val()
+    $.ajax({
+        method: 'POST',
+        url: BASE_URL + 'user/' + APP_KEY + '/login',
+        headers: AUTH_HEADERS,
+        data: { username, password }
+    }).then(function (res) {
+        console.log(res)
+        signInUser(res, 'Login successful.')
+    }).catch(handleAjaxError)
 }
 
 function registerUser() {
-    // TODO
-    // POST -> BASE_URL + 'user/' + APP_KEY + '/'
-    // signInUser(res, 'Registration successful.')
+    let username = $('#formRegister input[name=username]').val()
+    let password = $('#formRegister input[name=passwd]').val()
+    $.ajax({
+        method: 'POST',
+        url: BASE_URL + 'user/' + APP_KEY + '/',
+        headers: AUTH_HEADERS,
+        data: { username, password }
+    }).then(function (res) {
+        console.log('Here!');
+        signInUser(res, 'Registration successful.')
+    }).catch(handleAjaxError)
 }
 
 function listBooks() {
@@ -55,7 +71,12 @@ function logoutUser() {
 }
 
 function signInUser(res, message) {
-    // TODO
+    sessionStorage.setItem('username', res.username);
+    sessionStorage.setItem('authtoken', res._kmd.authtoken);
+    sessionStorage.setItem('userId', res._id);
+    showHomeView();
+    showHideMenuLinks();
+    showInfo(message);
 }
 
 function displayPaginationAndBooks(books) {
