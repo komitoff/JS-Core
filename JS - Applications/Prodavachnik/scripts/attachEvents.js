@@ -4,7 +4,7 @@ function attachAllEvents() {
   $("#linkLogin").on('click', showLoginView);
   $("#linkRegister").on('click', showRegisterView);
   $("#linkListAds").on('click', listAdds);
-  $("#linkCreateAd").on('click', showCreateAdView);
+  $("#linkCreateAd").on('click', showCreateAddView);
   $("#linkLogout").on('click', logoutUser);
 
   // Bind the form submit buttons
