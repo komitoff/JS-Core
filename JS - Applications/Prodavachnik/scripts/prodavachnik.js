@@ -1,2 +1,3 @@
 function startApp() {
+  showHideMenuLinks();
 }
