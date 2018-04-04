@@ -21,39 +21,37 @@ function showHideMenuLinks() {
     $('#linkLogout').show();
     $('#loggedInUser').text('Welcome ' + sessionStorage.getItem('username') + ' !');
   }
+}
+function showInfo(message) {
+  let infoBox = $('#infoBox')
+  infoBox.text(message)
+  infoBox.show()
+  setTimeout(function () {
+    $('#infoBox').fadeOut()
+  }, 3000)
+}
 
-  function showInfo(message) {
-    let infoBox = $('#infoBox')
-    infoBox.text(message)
-    infoBox.show()
-    setTimeout(function () {
-      $('#infoBox').fadeOut()
-    }, 3000)
-  }
+function showError(errorMsg) {
+  let errorBox = $('#errorBox')
+  errorBox.text("Error: " + errorMsg)
+  errorBox.show()
+}
 
-  function showError(errorMsg) {
-    let errorBox = $('#errorBox')
-    errorBox.text("Error: " + errorMsg)
-    errorBox.show()
-  }
+function showHomeView() {
+  showView('viewHome')
+}
 
-  function showHomeView() {
-    showView('viewHome')
-  }
+function showLoginView() {
+  showView('viewLogin')
+  $('#formLogin').trigger('reset')
+}
 
-  function showLoginView() {
-    showView('viewLogin')
-    $('#formLogin').trigger('reset')
-  }
+function showRegisterView() {
+  $('#formRegister').trigger('reset')
+  showView('viewRegister')
+}
 
-  function showRegisterView() {
-    $('#formRegister').trigger('reset')
-    showView('viewRegister')
-  }
-
-  function showCreateBookView() {
-    $('#formCreateBook').trigger('reset')
-    showView('viewCreateBook')
-  }
-
+function showCreateBookView() {
+  $('#formCreateBook').trigger('reset')
+  showView('viewCreateBook')
 }
