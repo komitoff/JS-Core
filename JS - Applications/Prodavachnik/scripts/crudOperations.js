@@ -30,28 +30,20 @@ function loginUser() {
   })
 }
 
-function logoutUser() {
-
-}
-
 function createAdd() {
-
+  //TODO
 }
 
 function listAdds() {
-  
+  //TODO
 }
 
 function editAdd() {
-
-}
-
-function showCreateAdView() {
-
+  //TODO
 }
 
 function showCreateAddView() {
-  
+  //TODO
 }
 
 function logoutUser() {
