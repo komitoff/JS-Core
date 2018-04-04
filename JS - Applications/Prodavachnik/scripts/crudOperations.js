@@ -11,11 +11,11 @@ function registerUser() {
     method: 'POST',
     url: BASE_URL + 'user/' + APP_KEY + '/',
     headers: AUTH_HEADERS,
-    Origin: 'https://baas.kinvey.com//userkid_HJp2KEGjz/',
+    'Access-Control-Allow-Origin': '*',
     data: { username, password }
   }).then((res) => {
     signInUser(res, 'Registration successful.')
-  }).catch(handleAjaxError)
+  }).catch(handleAjaxError);
 }
 
 function loginUser() {
@@ -25,12 +25,12 @@ function loginUser() {
     method: 'POST',
     url: BASE_URL + '/user' + APP_KEY + '/',
     headers: AUTH_HEADERS,
-    Origin: 'https://baas.kinvey.com//userkid_HJp2KEGjz/',
+    'Access-Control-Allow-Origin': '*',
     data: { username, password }
   }).then((res) => {
     console.log(res);
     signInUser(res, 'Login Successful!');
-  });
+    }).catch(handleAjaxError);
 }
 
 function createAdd() {
@@ -41,11 +41,17 @@ function createAdd() {
   $.ajax({
     method: 'POST',
     url: BASE_URL + 'appdata/' + APP_KEY + '/adds',
-    headers: AUTH_HEADERS,
-    data: { 'Title': title, 'Description': desc, 'Date Published': datePublished, 'Price': price }
+    headers: { 'Authorization': 'Kinvey ' + sessionStorage.getItem('authToken') },
+    'Access-Control-Allow-Origin': '*',
+    data: {
+      'Title': title,
+      'Description': desc,
+      'Date Published': datePublished,
+      'Price': price,
+      'Author': sessionStorage.getItem('username') }
   }).then((res) => {
     console.log(res);
-  });
+    }).catch(handleAjaxError);
 }
 
 function listAdds() {
@@ -74,4 +80,13 @@ function signInUser(res, message) {
   showHomeView();
   showHideMenuLinks();
   showInfo(message);
+}
+
+function handleAjaxError(response) {
+  let errorMsg = JSON.stringify(response)
+  if (response.readyState === 0)
+    errorMsg = "Cannot connect due to network error."
+  if (response.responseJSON && response.responseJSON.description)
+    errorMsg = response.responseJSON.description
+  showError(errorMsg)
 }
