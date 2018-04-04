@@ -11,6 +11,7 @@ function registerUser() {
     method: 'POST',
     url: BASE_URL + 'user/' + APP_KEY + '/',
     headers: AUTH_HEADERS,
+    Origin: 'https://baas.kinvey.com//userkid_HJp2KEGjz/',
     data: { username, password }
   }).then((res) => {
     signInUser(res, 'Registration successful.')
@@ -24,6 +25,7 @@ function loginUser() {
     method: 'POST',
     url: BASE_URL + '/user' + APP_KEY + '/',
     headers: AUTH_HEADERS,
+    Origin: 'https://baas.kinvey.com//userkid_HJp2KEGjz/',
     data: {username, password}
   }).then((res) => {
     console.log(res);
@@ -44,7 +46,7 @@ function editAdd() {
 }
 
 function showCreateAddView() {
-  //TODO
+  showView('viewCreateAd')
 }
 
 function logoutUser() {
