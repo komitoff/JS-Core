@@ -10,7 +10,7 @@ function attachAllEvents() {
   // Bind the form submit buttons
   $("#buttonLoginUser").on('click', loginUser);
   $("#buttonRegisterUser").on('click', registerUser);
-  $("#formCreateAd").on('submit', createAdd);
+  $("#buttonCreateAd").on('click', createAdd);
   $("#formEditAd").on('submit', editAdd);
   $("form").on('submit', function (event) { event.preventDefault() });
 

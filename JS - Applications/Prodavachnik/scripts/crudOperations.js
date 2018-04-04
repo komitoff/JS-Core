@@ -26,15 +26,26 @@ function loginUser() {
     url: BASE_URL + '/user' + APP_KEY + '/',
     headers: AUTH_HEADERS,
     Origin: 'https://baas.kinvey.com//userkid_HJp2KEGjz/',
-    data: {username, password}
+    data: { username, password }
   }).then((res) => {
     console.log(res);
     signInUser(res, 'Login Successful!');
-  })
+  });
 }
 
 function createAdd() {
-  //TODO
+  let title = $('#formCreateAd input[name=title]').val();
+  let desc = $('#formCreateAd textarea[name=description]').val();
+  let datePublished = $('#formCreateAd input[name=datePublished]').val();
+  let price = Number($('#formCreateAd input[name=price]').val());
+  $.ajax({
+    method: 'POST',
+    url: BASE_URL + 'appdata/' + APP_KEY + '/adds',
+    headers: AUTH_HEADERS,
+    data: { 'Title': title, 'Description': desc, 'Date Published': datePublished, 'Price': price }
+  }).then((res) => {
+    console.log(res);
+  });
 }
 
 function listAdds() {
