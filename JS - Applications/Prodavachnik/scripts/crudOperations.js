@@ -62,6 +62,18 @@ function editAdd() {
   //TODO
 }
 
+
+function deleteAdd(add) {
+  $.ajax({
+    method: 'DELETE',
+    url: BASE_URL + 'appdata/' + APP_KEY + '/adds/' + book._id,
+    headers: { 'Authorization': 'Kinvey ' + sessionStorage.getItem('authToken') }
+  }).then(function () {
+    listAdds()
+    showInfo('Add deleted.')
+  }).catch(handleAjaxError)
+}
+
 function showCreateAddView() {
   showView('viewCreateAd')
 }
