@@ -66,22 +66,41 @@ function listAdds() {
 
 function displayAllAdds(res) {
   let table = $('#ads').find('table');
+  table.empty();
   console.log(res);
   for (const key in res) {
+    let add = res[key];
     let tr = $('<tr>');
-    let title = `<td>${res[key].Title}</td>`;
-    let publisher = `<td>${res[key].Author}</td>`;
-    let desc = `<td>${res[key].Description}</td>`;
-    let price = `<td>${res[key].Price}</td>`;
-    let date = `<td>${res[key]['Date Published']}</td>`;
+
+    //fill the table with incoming data
+    let title = `<td>${add.Title}</td>`;
+    let publisher = `<td>${add.Author}</td>`;
+    let desc = `<td>${add.Description}</td>`;
+    let price = `<td>${add.Price}</td>`;
+    let date = `<td>${add['Date Published']}</td>`;
+
+    //append data to table
     tr.append(title);
     tr.append(publisher);
     tr.append(desc);
     tr.append(price);
     tr.append(date);
-    if (sessionStorage.getItem('username') === res[key].Author) {
-      let edit = `<a href="#">[Edit]</a>`;
-      let del = `<a href="#">[Delete]</a>`;
+
+    //check if the ad is created by the current user
+    if (sessionStorage.getItem('username') === add.Author) {
+      //setting edit button
+      let edit = $('<a>');
+      edit.attr('href', '#');
+      edit.text('[Edit]');
+      edit.on('click', editAdd);
+      
+      //setting delete button
+      let del = $('<a>');
+      del.attr('href', '#');
+      del.text('[Delete]');
+      del.on('click', deleteAdd(add));
+
+      //append elements
       let td = $('<td>');
       td.append(edit);
       td.append(del);
@@ -100,7 +119,7 @@ function editAdd() {
 function deleteAdd(add) {
   $.ajax({
     method: 'DELETE',
-    url: BASE_URL + 'appdata/' + APP_KEY + '/adds/' + book._id,
+    url: BASE_URL + 'appdata/' + APP_KEY + '/adds/' + add._id,
     headers: { 'Authorization': 'Kinvey ' + sessionStorage.getItem('authToken') }
   }).then(function () {
     listAdds()
