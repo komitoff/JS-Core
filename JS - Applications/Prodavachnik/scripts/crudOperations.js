@@ -23,7 +23,7 @@ function loginUser() {
   let password = $('#formRegister input[name=passwd]').val();
   $.ajax({
     method: 'POST',
-    url: BASE_URL + '/user' + APP_KEY + '/',
+    url: BASE_URL + 'user/' + APP_KEY + '/',
     headers: AUTH_HEADERS,
     'Access-Control-Allow-Origin': '*',
     data: { username, password }
@@ -42,7 +42,6 @@ function createAdd() {
     method: 'POST',
     url: BASE_URL + 'appdata/' + APP_KEY + '/adds',
     headers: { 'Authorization': 'Kinvey ' + sessionStorage.getItem('authToken') },
-    'Access-Control-Allow-Origin': '*',
     data: {
       'Title': title,
       'Description': desc,
@@ -50,12 +49,47 @@ function createAdd() {
       'Price': price,
       'Author': sessionStorage.getItem('username') }
   }).then((res) => {
-    console.log(res);
-    }).catch(handleAjaxError);
+    showView('viewAds')
+  }).catch(handleAjaxError);
 }
 
 function listAdds() {
-  //TODO
+  $.ajax({
+    method: 'GET',
+    url: BASE_URL + 'appdata/' + APP_KEY + '/adds',
+    headers: { 'Authorization': 'Kinvey ' + sessionStorage.getItem('authToken') }
+  }).then((res) => {
+    showView('viewAds');
+    displayAllAdds(res);
+  }).catch(handleAjaxError);
+}
+
+function displayAllAdds(res) {
+  let table = $('#ads').find('table');
+  console.log(res);
+  for (const key in res) {
+    let tr = $('<tr>');
+    let title = `<td>${res[key].Title}</td>`;
+    let publisher = `<td>${res[key].Author}</td>`;
+    let desc = `<td>${res[key].Description}</td>`;
+    let price = `<td>${res[key].Price}</td>`;
+    let date = `<td>${res[key]['Date Published']}</td>`;
+    tr.append(title);
+    tr.append(publisher);
+    tr.append(desc);
+    tr.append(price);
+    tr.append(date);
+    if (sessionStorage.getItem('username') === res[key].Author) {
+      let edit = `<a href="#">[Edit]</a>`;
+      let del = `<a href="#">[Delete]</a>`;
+      let td = $('<td>');
+      td.append(edit);
+      td.append(del);
+      tr.append(td);
+    }
+    
+    table.append(tr);
+  }
 }
 
 function editAdd() {
@@ -90,6 +124,7 @@ function signInUser(res, message) {
   sessionStorage.setItem('authToken', res._kmd.authtoken);
   sessionStorage.setItem('userId', res._id);
   showHomeView();
+  $('#loggedInUser').text(res.username);
   showHideMenuLinks();
   showInfo(message);
 }
