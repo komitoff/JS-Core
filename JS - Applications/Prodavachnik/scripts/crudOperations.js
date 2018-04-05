@@ -90,7 +90,7 @@ function displayAllAdds(res) {
       edit.attr('href', '#');
       edit.text('[Edit]');
       edit.on('click', () => {
-        editAdd(add);
+        showView('viewEditAd');
       });
       
       //setting delete button
