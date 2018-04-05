@@ -22,7 +22,7 @@ function loginUser() {
   let password = $('#formRegister input[name=passwd]').val();
   $.ajax({
     method: 'POST',
-    url: BASE_URL + 'user/' + APP_KEY + '/',
+    url: BASE_URL + 'user/' + APP_KEY + '/login',
     headers: AUTH_HEADERS,
     data: { username, password }
   }).then((res) => {
@@ -160,6 +160,7 @@ function logoutUser() {
 }
 
 function signInUser(res, message) {
+  console.log(res.username);
   sessionStorage.setItem('username', res.username);
   sessionStorage.setItem('authToken', res._kmd.authtoken);
   sessionStorage.setItem('userId', res._id);
