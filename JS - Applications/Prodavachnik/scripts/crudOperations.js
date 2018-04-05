@@ -11,7 +11,6 @@ function registerUser() {
     method: 'POST',
     url: BASE_URL + 'user/' + APP_KEY + '/',
     headers: AUTH_HEADERS,
-    'Access-Control-Allow-Origin': '*',
     data: { username, password }
   }).then((res) => {
     signInUser(res, 'Registration successful.')
@@ -25,7 +24,6 @@ function loginUser() {
     method: 'POST',
     url: BASE_URL + 'user/' + APP_KEY + '/',
     headers: AUTH_HEADERS,
-    'Access-Control-Allow-Origin': '*',
     data: { username, password }
   }).then((res) => {
     console.log(res);
@@ -66,7 +64,7 @@ function listAdds() {
 
 function displayAllAdds(res) {
   let table = $('#ads').find('table');
-  console.log(res);
+
   for (const key in res) {
     let add = res[key];
     let tr = $('<tr>');
