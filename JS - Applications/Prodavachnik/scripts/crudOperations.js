@@ -66,7 +66,6 @@ function listAdds() {
 
 function displayAllAdds(res) {
   let table = $('#ads').find('table');
-  table.empty();
   console.log(res);
   for (const key in res) {
     let add = res[key];
@@ -92,13 +91,17 @@ function displayAllAdds(res) {
       let edit = $('<a>');
       edit.attr('href', '#');
       edit.text('[Edit]');
-      edit.on('click', editAdd);
+      edit.on('click', () => {
+        editAdd(add);
+      });
       
       //setting delete button
       let del = $('<a>');
       del.attr('href', '#');
       del.text('[Delete]');
-      del.on('click', deleteAdd(add));
+      del.on('click', () => {
+        deleteAdd(add);
+      });
 
       //append elements
       let td = $('<td>');
@@ -112,7 +115,27 @@ function displayAllAdds(res) {
 }
 
 function editAdd() {
-  //TODO
+  let id = $('#formEditAd input[name=id]').val();
+  let title = $('#formEditAd input[name=title]').val();
+  let author = $('#formEditAd input[name=publisher]').val();
+  let desc = $('#formEditAd textarea[name=description]').val();
+  let datePublished = $('#formEditAd input[name=datePublished]').val();
+  let price = $('#price input[name=price]').val();
+
+  $.ajax({
+    method: 'PUT',
+    url: BASE_URL + 'appdata/' + APP_KEY + '/adds/' + add._id,
+    headers: { 'Authorization': 'Kinvey ' + sessionStorage.getItem('authToken') },
+    data: {
+      'Title': title,
+      'Description': desc,
+      'Date Published': datePublished,
+      'Price': price,
+      'Author': sessionStorage.getItem('username')
+    }
+  }).then((res) => {
+    showView('viewAds')
+  }).catch(handleAjaxError);
 }
 
 
@@ -122,8 +145,8 @@ function deleteAdd(add) {
     url: BASE_URL + 'appdata/' + APP_KEY + '/adds/' + add._id,
     headers: { 'Authorization': 'Kinvey ' + sessionStorage.getItem('authToken') }
   }).then(function () {
-    listAdds()
-    showInfo('Add deleted.')
+    showView('viewHome');
+    showInfo('Add deleted.');
   }).catch(handleAjaxError)
 }
 
