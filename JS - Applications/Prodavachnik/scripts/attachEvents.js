@@ -11,7 +11,7 @@ function attachAllEvents() {
   $("#buttonLoginUser").on('click', loginUser);
   $("#buttonRegisterUser").on('click', registerUser);
   $("#buttonCreateAd").on('click', createAdd);
-  $("#formEditAd").on('submit', editAdd);
+  $('#buttonEditAd').on('click', editAdd);
   $("form").on('submit', function (event) { event.preventDefault() });
 
   // Bind the info / error boxes
