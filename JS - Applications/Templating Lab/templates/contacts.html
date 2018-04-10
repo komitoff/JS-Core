@@ -1,19 +1,9 @@
-<div id="list">
-  <h1>Contacts</h1>
-  <div class="content">
-    <div class="contact" data-id="id">
-      <span class="avatar small">&#9787;</span>
-      <span class="title">Ivan Ivanov</span>
-    </div>
-
-    <div class="contact" data-id="id">
-      <span class="avatar small">&#9787;</span>
-      <span class="title">Jordan Kirov</span>
-    </div>
-
-    <div class="contact" data-id="id">
-      <span class="avatar small">&#9787;</span>
-      <span class="title">Maria Petrova</span>
-    </div>
+<h1>Contacts</h1>
+<div class="content">
+  {{#each contacts}}
+  <div class="contact" data-id='{{@index}}'>
+    <span class="avatar small">&#9787;</span>
+    <span class="title">{{firstName}} {{lastName}}</span>
   </div>
+  {{/each}}
 </div>
