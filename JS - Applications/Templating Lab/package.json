@@ -2,6 +2,7 @@
   "name": "TEMPLATING LAB",
   "version": "0.0.1",
   "dependencies": {
-    "handlebars": "^4.0.11"
+    "handlebars": "^4.0.11",
+    "jQuery": "^1.7.4"
   }
 }
