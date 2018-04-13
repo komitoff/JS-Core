@@ -11,25 +11,25 @@ $(() => {
     data = await $.get('./data.json');
     let obj = {
       contacts: data
-    }
-    let table = contactsTemplate(obj)
-    $('#list').append(table)
-    attachEvents()
+    };
+    let table = contactsTemplate(obj);
+    $('#list').append(table);
+    attachEvents();
   }
-  loadFiles()
+  loadFiles();
 
   function attachEvents() {
     $('.contact').on('click', function () {
-      loadDetails($(this).attr('data-id'))
-      $('.active').removeClass('active')
-      $(this).addClass('active')
-    })
+      loadDetails($(this).attr('data-id'));
+      $('.active').removeClass('active');
+      $(this).addClass('active');
+    });
   }
 
   function loadDetails(index) {
-    let detailsTemplate = Handlebars.compile(details)
-    let html = detailsTemplate(data[index])
-    $('#details').empty()
-    $('#details').append(html)
+    let detailsTemplate = Handlebars.compile(details);
+    let html = detailsTemplate(data[index]);
+    $('#details').empty();
+    $('#details').append(html);
   }
 });
