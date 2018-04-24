@@ -1,12 +1,12 @@
 let auth = (() => {
   function isAuth() {
-    return localStorage.getItem('authtoken') !== null;
+    return sessionStorage.getItem('authtoken') !== null;
   }
 
   function saveSession(userData) {
-    localStorage.setItem('authtoken', userData._kmd.authtoken);
-    localStorage.setItem('username', userData.username);
-    localStorage.setItem('userId', userData._id);
+    sessionStorage.setItem('authtoken', userData._kmd.authtoken);
+    sessionStorage.setItem('username', userData.username);
+    sessionStorage.setItem('userId', userData._id);
   }
 
 
@@ -25,7 +25,7 @@ let auth = (() => {
   function logout() {
     remote.post('user', '_logout', 'kinvey')
       .then(() => {
-        localStorage.clear();
+        sessionStorage.clear();
       })
       .catch(console.error);
   }
