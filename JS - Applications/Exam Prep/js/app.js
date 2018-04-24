@@ -3,8 +3,7 @@ $(() => {
     this.use('Handlebars', 'hbs');
 
     this.get('#/home', getWelcomePage);
-    this.get('exam.html', getWelcomePage);
-    this.get("", getWelcomePage);
+    this.get('index.html', getWelcomePage);
 
     this.post('#/register', (ctx) => {
       let username = ctx.params.username;
@@ -49,6 +48,36 @@ $(() => {
         .then(() => {
           sessionStorage.clear();
           ctx.redirect('#/home');
+        });
+    });
+
+    this.get('#/catalog', (ctx) => {
+      if (!auth.isAuth()) {
+        ctx.redirect('#/home');
+        return;
+      }
+
+      postsService.getAllPosts()
+        .then((posts) => {
+          posts.forEach((p, i) => {
+            p.rank = i + 1;
+            p.date = calcTime(p._kmd.ect);
+            p.isAuthor = p._acl.creator === sessionStorage.getItem('userId');
+          });
+
+          ctx.isAuth = auth.isAuth();
+          ctx.username = sessionStorage.getItem('username');
+          ctx.articles = posts;
+
+          ctx.loadPartials({
+            header: './templates/common/header.hbs',
+            footer: './templates/common/footer.hbs',
+            navigation: './templates/common/navigation.hbs',
+            article: './templates/posts/article.hbs',
+            postList: './templates/posts/post-list.hbs' 
+          }).then(function () {
+            this.partial('./templates/posts/catalog-page.hbs');
+          })
         });
     });
 
