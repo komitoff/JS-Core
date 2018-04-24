@@ -1,16 +1,15 @@
 let remote = (() => {
   const BASE_URL = 'https://baas.kinvey.com/';
-  const APP_KEY = ''; // APP KEY HERE
-  const APP_SECRET = ''; // APP SECRET HERE
+  const APP_KEY = 'kid_B1mtQfcsM'; // APP KEY HERE
+  const APP_SECRET = '9c0ff3ba41784a1abb7c480f6befd497'; // APP SECRET HERE
 
   function makeAuth(auth) {
     if (auth === 'basic') {
       return `Basic ${btoa(APP_KEY + ":" + APP_SECRET)}`;
     } else {
-      return `Kinvey ${localStorage.getItem('authtoken')}`
+      return `Kinvey ${sessionStorage.getItem('authtoken')}`
     }
   }
-
 
   // request method (GET, POST, PUT)
   // kinvey module (user/appdata)
