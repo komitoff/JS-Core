@@ -12,22 +12,18 @@ let auth = (() => {
 
   function register(username, password) {
     let obj = { username, password };
-    remote.post('user', '', 'basic', obj)
-      .then(saveSession)
-      .catch(console.error);
+
+    return remote.post('user', '', 'basic', obj);
   }
 
   function login(username, password) {
     let obj = { username, password };
+
     return remote.post('user', 'login', 'basic', obj)
   }
 
   function logout() {
-    remote.post('user', '_logout', 'kinvey')
-      .then(() => {
-        sessionStorage.clear();
-      })
-      .catch(console.error);
+    return remote.post('user', '_logout', 'kinvey');
   }
 
   return {
@@ -37,4 +33,4 @@ let auth = (() => {
     register,
     saveSession
   }
-})()
+})();

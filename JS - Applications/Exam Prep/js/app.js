@@ -10,12 +10,12 @@ $(() => {
       let password = ctx.params.password;
       let repeatPass = ctx.params.repeatPass;
 
-      if (!/[A-Za-z]{3,}/.test(username)) {
-        notify.showError('Username should be at least 3 symbols');
-      } else if (!/[A-Za-z\d]{6,}/.test(password)) {
-        notify.showError('Password is not valid!');
+      if (!/^[A-Za-z]{3,}$/.test(username)) {
+        notify.showError('Username should be at least 3 characters long and contain only english alphabet letters');
+      } else if (!/^[A-Za-z\d]{6,}$/.test(password)) {
+        notify.showError('Password should be at least 6 characters long and contain only english alphabet letters');
       } else if (repeatPass !== password) {
-        notify.showError('Passwords are not matching');
+        notify.showError('Passwords must match!');
       } else {
         auth.register(username, password)
           .then((userData) => {
@@ -31,24 +31,25 @@ $(() => {
       let username = ctx.params.username;
       let password = ctx.params.password;
 
-      if (username == '' || password == '') { 
-        notify.showError('All fields must be filled!');
+      if (username === '' || password === '') {
+        notify.showError('All fields should be non-empty!');
       } else {
         auth.login(username, password)
           .then((userData) => {
             auth.saveSession(userData);
-            notify.showInfo('Login successful!');
+            notify.showInfo('Login successful.');
             ctx.redirect('#/catalog');
-          });
+          })
+          .catch(notify.handleError);
       }
     });
-
     this.get('#/logout', (ctx) => {
       auth.logout()
         .then(() => {
           sessionStorage.clear();
           ctx.redirect('#/home');
-        });
+        })
+        .catch(notify.handleError);
     });
 
     this.get('#/catalog', (ctx) => {
@@ -68,6 +69,7 @@ $(() => {
           ctx.isAuth = auth.isAuth();
           ctx.username = sessionStorage.getItem('username');
           ctx.articles = posts;
+          console.log(ctx.imgUrl);
 
           ctx.loadPartials({
             header: './templates/common/header.hbs',
