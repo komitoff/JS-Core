@@ -6,9 +6,9 @@ $(() => {
     this.get('index.html', getWelcomePage);
 
     this.post('#/register', (ctx) => {
-      let username = ctx.params.username;
-      let password = ctx.params.password;
-      let repeatPass = ctx.params.repeatPass;
+      let username = ctx.params['username-register'];
+      let password = ctx.params['password-register'];
+      let repeatPass = ctx.params['password-register-check'];
 
       if (!/^[A-Za-z]{3,}$/.test(username)) {
         notify.showError('Username should be at least 3 characters long and contain only english alphabet letters');
@@ -28,8 +28,8 @@ $(() => {
     });
 
     this.post('#/login', (ctx) => {
-      let username = ctx.params.username;
-      let password = ctx.params.password;
+      let username = ctx.params['username-login'];
+      let password = ctx.params['password-login'];
 
       if (username === '' || password === '') {
         notify.showError('All fields should be non-empty!');
