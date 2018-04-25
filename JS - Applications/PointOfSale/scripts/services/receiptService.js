@@ -1,24 +1,31 @@
 let receiptService = (() => {
+  'use strict';
 
-  function getReceiptById(userId, active) {
-    const endpoint = `receipts?query={"_acl.creator":"${userId}","active":"${active}"}`;
-    remote.get('appdata', endpoint, 'kinvey');
+  function getReceiptById(userId) {
+    const endpoint = `receipts?query={"_acl.creator":"${userId}","active":"true"}`;
+    console.log(endpoint);
+    return remote.get('appdata', endpoint, 'kinvey');
   }
 
   function createReceipt(active, productCount, total) {
     const endpoint = `receipts`;
     let data = { active, productCount, total };
-    remote.post('appdata', endPoint, 'kinvey', data);
+    return remote.post('appdata', endpoint, 'kinvey', data);
   }
 
+  function getAllReceipts() {
+    const endpoint = 'receipts';
+    return remote.get('appdata', endpoint, 'kinvey');
+  }
   function getMyReceipts(userId) {
     const endpoint = `receipts?query={"_acl.creator":"${userId}","active":"false"}`;
-    remote.get('appdata', endpoint, 'kinvey');
+    return remote.get('appdata', endpoint, 'kinvey');
   }
 
   return {
     getReceiptById,
     createReceipt,
-    getMyReceipts
+    getMyReceipts,
+    getAllReceipts
   }
 })();

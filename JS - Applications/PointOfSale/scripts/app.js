@@ -55,22 +55,31 @@ $(() => {
     this.get('#/editor', (ctx) => {
       ctx.username = sessionStorage.getItem('username');
       let currentUserId = sessionStorage.getItem('userId');
-      let receiptId = receiptService.getReceiptById(currentUserId, true);
-
-      if (!receiptId) {
-        //TODO
-      }
-
-      ctx.entries = entryService.getEntriesByReceiptId(receiptId);
-      ctx.loadPartials({
-        header: './templates/common/header.hbs',
-        footer: './templates/common/footer.hbs',
-        tableHead: './templates/editor/table-components/table-head.hbs',
-        createEntryForm: './templates/forms/create-entry-form.hbs',
-        entryList: '../templates/editor/table-components/entries-list.hbs',
-      }).then((function () {
-        this.partial('./templates/editor/editor-page.hbs');
-      }))
+      receiptService.getReceiptById(currentUserId)
+        .then((receipt) => {
+          if (receipt.length === 0) {
+            receiptService.createReceipt('true', 0, 0)
+              .then((res) => {
+                console.log(res);
+              });
+          } else {
+            console.log(receipt[0]._id);
+            entryService.getEntriesByReceiptId(receipt[0]._id)
+              .then((entries) => {
+                console.log(entries);
+              });
+          }
+        });
+      // ctx.loadPartials({
+      //   header: './templates/common/header.hbs',
+      //   footer: './templates/common/footer.hbs',
+      //   tableHead: './templates/editor/table-components/table-head.hbs',
+      //   createEntryForm: './templates/forms/create-entry-form.hbs',
+      //   entryList: './templates/editor/table-components/entries-list.hbs',
+      //   entry: './templates/editor/table-components/entries-list.hbs'
+      // }).then((function () {
+      //   this.partial('./templates/editor/editor-page.hbs');
+      // }))
     });
 
     this.post('#/create/entry', (ctx) => {
