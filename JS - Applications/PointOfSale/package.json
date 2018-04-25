@@ -1,0 +1,21 @@
+{
+  "name": "seenit",
+  "dependencies": {
+    "handlebars": "^4.0.11",
+    "jquery": "^3.3.1",
+    "reload": "^2.2.2",
+    "sammy": "^0.7.6"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "lite-server": "^2.3.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "lite-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
