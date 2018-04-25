@@ -17,6 +17,8 @@ let entryService = (() => {
   }
 
   return {
-
+    getEntriesByReceiptId,
+    addEntry,
+    deleteEntry
   }
 })();

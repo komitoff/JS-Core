@@ -1,7 +1,7 @@
 let receiptService = (() => {
 
-  function getReceiptById(userId) {
-    const endpoint = `receipts?query={"_acl.creator":"${userId}","active":"true"}`;
+  function getReceiptById(userId, active) {
+    const endpoint = `receipts?query={"_acl.creator":"${userId}","active":"${active}"}`;
     remote.get('appdata', endpoint, 'kinvey');
   }
 
