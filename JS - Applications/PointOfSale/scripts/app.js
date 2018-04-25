@@ -56,7 +56,6 @@ $(() => {
     function getWelcomePage(ctx) {
       if (!authService.isAuth()) {
         ctx.loadPartials({
-          header: './templates/common/header.hbs',
           loginForm: './templates/forms/login-form.hbs',
           registerForm: './templates/forms/register-form.hbs',
           footer: './templates/common/footer.hbs'
@@ -64,7 +63,7 @@ $(() => {
           this.partial('./templates/welcome-anonymous.hbs');
         });
       } else {
-        ctx.redirect('#/catalog');
+        ctx.redirect('#/editor');
       }
     }
   });
