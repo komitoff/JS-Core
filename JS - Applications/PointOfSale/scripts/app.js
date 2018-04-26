@@ -60,30 +60,69 @@ $(() => {
           if (receipt.length === 0) {
             receiptService.createReceipt('true', 0, 0)
               .then((res) => {
-                console.log(res);
-              });
+                ctx.redirect('#/editor');
+              })
+              .catch(notify.handleError);
           } else {
-            console.log(receipt[0]._id);
             entryService.getEntriesByReceiptId(receipt[0]._id)
               .then((entries) => {
-                console.log(entries);
-              });
+                ctx.entries = entries;
+                let total = 0;
+                let subtotal = 0;
+                ctx.entries.forEach((p, i) => {
+                  subtotal = (p.qty * p.price);
+                  total += subtotal; 
+                  console.log(total);
+                  console.log(subtotal);
+                  p.subtotal = subtotal.toFixed(2);
+                });
+
+                ctx.total = total.toFixed(2);
+                sessionStorage.setItem('receiptId', receipt[0]._id);
+                ctx.loadPartials({
+                  header: './templates/common/header.hbs',
+                  footer: './templates/common/footer.hbs',
+                  tableHead: './templates/editor/table-components/table-head.hbs',
+                  createEntryForm: './templates/forms/create-entry-form.hbs',
+                  entry: './templates/editor/table-components/entry.hbs',
+                  entryList: './templates/editor/table-components/entries-list.hbs'                  
+                }).then((function () {
+                  this.partial('./templates/editor/editor-page.hbs');
+                }));
+              }).catch(notify.handleError);
           }
         });
-      // ctx.loadPartials({
-      //   header: './templates/common/header.hbs',
-      //   footer: './templates/common/footer.hbs',
-      //   tableHead: './templates/editor/table-components/table-head.hbs',
-      //   createEntryForm: './templates/forms/create-entry-form.hbs',
-      //   entryList: './templates/editor/table-components/entries-list.hbs',
-      //   entry: './templates/editor/table-components/entries-list.hbs'
-      // }).then((function () {
-      //   this.partial('./templates/editor/editor-page.hbs');
-      // }))
+      
+
     });
 
     this.post('#/create/entry', (ctx) => {
-      //TODO
+      let type = ctx.params.type;
+      let qty = ctx.params.qty;
+      let price = ctx.params.price;
+
+      //TODO check validity of input
+      let receiptId = sessionStorage.getItem('receiptId');
+      entryService.addEntry(type, qty, price, receiptId)
+        .then(() => {
+          notify.showInfo('Product added successful !');
+          ctx.redirect('#/editor');
+        }).catch(notify.handleError);
+    });
+
+    this.get('#/delete/entry/:entryId', (ctx) => {
+      if (!authService.isAuth()) {
+        ctx.redirect('#/home');
+        return;
+      }
+
+      let entryId = ctx.params.entryId;
+      entryService.deleteEntry(entryId)
+        .then(() => {
+          notify.showInfo('Product Deleted Successful!');
+          ctx.redirect('#/home');
+        })
+        .catch(notify.handleError);
     });
 
     //helper function
