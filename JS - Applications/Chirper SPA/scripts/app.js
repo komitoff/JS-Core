@@ -166,7 +166,15 @@ $(() => {
 
       authService.getAllUsers()
         .then((res) => {
+          res.forEach((u, i) => {
+            chirpService.getFollowers(u.username)
+              .then((flw) => {
+                u.followers = flw.length - 1;
+                console.log(u.followers);
+              }).catch(notify.handleError);
+          });
           ctx.users = res;
+          console.log(res);
           ctx.loadPartials({
             footer: './templates/common/footer.hbs',
             header: './templates/common/header.hbs',
