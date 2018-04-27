@@ -1,0 +1,17 @@
+{{> header}}
+{{> nav}}
+<section id="viewFeed">
+  <div class="content">
+    <div class="chirper">
+      <h2 class="titlebar">{{username}}</h2>
+      {{> createChirp}}
+      {{> myStats}}
+    </div>
+    <div id="chirps" class="chirps">
+      <h2 class="titlebar">Chirps</h2>
+      {{> chirpList}}
+    </div>
+  </div>
+</section>
+
+{{> footer}}

@@ -1,4 +1,4 @@
-let authService = (() => { 
+let chirpService = (() => { 
 
   //subs is array of subscriptions
   function getAllChirpsFromSubs(subs) {
@@ -35,7 +35,7 @@ let authService = (() => {
     return remote.get('appdata', endpoint, 'kinvey');
   }
 
-  function countFollowers(username) {
+  function getFollowers(username) {
     const endpoint = `?query={"subscriptions":"${username}"}`;
     return remote.get('appdata', endpoint, 'kinvey');
   }
@@ -44,7 +44,10 @@ let authService = (() => {
     getAllChirpsFromSubs,
     createChirp,
     deleteChirp,
-    getUserChirps
+    getUserChirps,
+    getChirpsCount,
+    getFollowing,
+    getFollowers
   };
 
 })();
