@@ -25,6 +25,21 @@ let authService = (() => {
     return remote.get('appdata', endpoint, 'kinvey');
   }
 
+  function getChirpsCount(username) {
+    const endpoit = `chirps?query={"author":"${username}"}`;
+    return remote.get('appdata', endpoit, 'kinvey');
+  }
+
+  function getFollowing(username) {
+    const endpoint = `?query={"username":"${username}"}`;
+    return remote.get('appdata', endpoint, 'kinvey');
+  }
+
+  function countFollowers(username) {
+    const endpoint = `?query={"subscriptions":"${username}"}`;
+    return remote.get('appdata', endpoint, 'kinvey');
+  }
+
   return {
     getAllChirpsFromSubs,
     createChirp,
