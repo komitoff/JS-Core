@@ -31,12 +31,12 @@ let chirpService = (() => {
   }
 
   function getFollowing(username) {
-    const endpoint = `?query={"username":"${username}"}`;
+    const endpoint = `chirps?query={"username":"${username}"}`;
     return remote.get('appdata', endpoint, 'kinvey');
   }
 
   function getFollowers(username) {
-    const endpoint = `?query={"subscriptions":"${username}"}`;
+    const endpoint = `chirps?query={"subscriptions":"${username}"}`;
     return remote.get('appdata', endpoint, 'kinvey');
   }
 

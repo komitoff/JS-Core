@@ -31,11 +31,16 @@ let authService = (() => {
     return remote.post('user', '_logout', 'kinvey');
   }
 
+  function getAllUsers() {
+    return remote.get('user', '', 'kinvey');
+  }
+
   return {
     isAuth,
     login,
     logout,
     register,
-    saveSession
+    saveSession,
+    getAllUsers
   }
 })();

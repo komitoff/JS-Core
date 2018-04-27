@@ -158,6 +158,29 @@ $(() => {
 
     });
 
+    this.get('#/discover', (ctx) => { 
+      if (!authService.isAuth()) {
+        ctx.redirect('#/home');
+        return;
+      }
+
+      authService.getAllUsers()
+        .then((res) => {
+          ctx.users = res;
+          ctx.loadPartials({
+            footer: './templates/common/footer.hbs',
+            header: './templates/common/header.hbs',
+            nav: './templates/common/nav.hbs',
+            user: './templates/discover/user.hbs',
+            userList: './templates/discover/user-list.hbs'
+          })
+            .then(function () {
+              this.partial('./templates/discover/discover-page.hbs');
+            })
+            .catch(notify.handleError);
+        });
+    });
+
     //helper function
     function getWelcomePage(ctx) {
       if (!authService.isAuth()) {
