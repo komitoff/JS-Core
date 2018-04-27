@@ -10,8 +10,8 @@ let authService = (() => {
   }
 
 
-  function register(username, password) {
-    let obj = { username, password };
+  function register(username, password, subscriptions) {
+    let obj = { username, password, subscriptions };
 
     return remote.post('user', '', 'basic', obj);
   }
